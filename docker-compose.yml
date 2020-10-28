@@ -1,0 +1,24 @@
+version: "3"
+services:
+  ${PROJECT_NAME}:
+    image: ${AWS_ID}.dkr.ecr.${AWS_REGION:-eu-west-1}.amazonaws.com/${AWS_IMAGE_REGISTRY}:prod
+    restart: always
+    container_name: "${PROJECT_NAME}"
+    command: /bin/bash -c "exec nginx -g 'daemon off;'"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${PROJECT_NAME}-http.rule=Host(`${PROJECT_URL:-http://localhost}`)"
+      - "traefik.http.routers.${PROJECT_NAME}-http.entrypoints=http"
+      - "traefik.http.routers.${PROJECT_NAME}-http.middlewares=https-redirect@file"
+      - "traefik.http.routers.${PROJECT_NAME}-https.rule=Host(`${PROJECT_URL:-http://localhost}`)"
+      - "traefik.http.routers.${PROJECT_NAME}-https.entrypoints=https"
+      - "traefik.http.routers.${PROJECT_NAME}-https.middlewares=security@file, compression@file"
+      - "traefik.http.routers.${PROJECT_NAME}-https.tls=true"
+      - "traefik.http.routers.${PROJECT_NAME}-https.tls.certresolver=letsencrypt"
+      - "traefik.docker.network=traefik_proxy"
+    networks:
+      - traefik_proxy
+networks:
+  traefik_proxy:
+    external:
+      name: traefik_proxy
