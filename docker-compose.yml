@@ -1,13 +1,13 @@
 version: "3"
 services:
   PROJECT_NAME:
-    image: AWS_ID.dkr.ecr.eu-west-1.amazonaws.com/AWS_IMAGE_REGISTRY:prod
+    image: AWS_ID.dkr.ecr.AWS_REGION.amazonaws.com/AWS_IMAGE_REGISTRY:prod
     restart: always
     container_name: "PROJECT_NAME"
     command: /bin/bash -c "exec nginx -g 'daemon off;'"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.PROJECT_NAME-http.rule=Host(`PROJECT_URL`)"
+      - "traefik.http.routers.PROJECT_NAME-http.rule=PROJECT_URL"
       - "traefik.http.routers.PROJECT_NAME-http.entrypoints=http"
       - "traefik.http.routers.PROJECT_NAME-http.middlewares=https-redirect@file"
       - "traefik.http.routers.PROJECT_NAME-https.rule=Host(`PROJECT_URL`)"
