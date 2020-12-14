@@ -4,6 +4,8 @@ services:
     image: AWS_ID.dkr.ecr.AWS_REGION.amazonaws.com/AWS_IMAGE_REGISTRY:prod
     restart: always
     container_name: "PROJECT_NAME"
+    env_file:
+      - .env
     command: /bin/bash -c "exec nginx -g 'daemon off;'"
     labels:
       - "traefik.enable=true"
