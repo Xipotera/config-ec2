@@ -9,10 +9,10 @@ services:
     command: "npm run STAGE"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.PROJECT_NAME-http.rule=(`WEBITE_URL`)"
+      - "traefik.http.routers.PROJECT_NAME-http.rule=(`WEBSITE_URL`)"
       - "traefik.http.routers.PROJECT_NAME-http.entrypoints=http"
       - "traefik.http.routers.PROJECT_NAME-http.middlewares=https-redirect@file"
-      - "traefik.http.routers.PROJECT_NAME-https.rule=Host(`WEBITE_URL`)"
+      - "traefik.http.routers.PROJECT_NAME-https.rule=Host(`WEBSITE_URL`)"
       - "traefik.http.routers.PROJECT_NAME-https.entrypoints=https"
       - "traefik.http.routers.PROJECT_NAME-https.middlewares=security@file, compression@file"
       - "traefik.http.routers.PROJECT_NAME-https.tls=true"
