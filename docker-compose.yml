@@ -1,7 +1,7 @@
 version: "3"
 services:
   PROJECT_NAME:
-    image: AWS_ID.dkr.ecr.AWS_REGION.amazonaws.com/AWS_IMAGE_REGISTRY:prod
+    image: AWS_ID.dkr.ecr.AWS_REGION.amazonaws.com/AWS_IMAGE_REGISTRY:STAGE
     restart: always
     container_name: "PROJECT_NAME"
     env_file:
